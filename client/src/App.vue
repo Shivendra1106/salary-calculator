@@ -1,18 +1,16 @@
 <template>
   <div id="app">
-    <router-view /> <!-- This will display the current route's component -->
+    <EmployeeList />
   </div>
 </template>
 
 <script>
-export default {
-  name: "App"
-};
-</script>
+import EmployeeList from './views/EmployeeList.vue';
 
-<style>
-#app {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+export default {
+  name: 'App',
+  components: {
+    EmployeeList
+  }
 }
-</style>
+</script>

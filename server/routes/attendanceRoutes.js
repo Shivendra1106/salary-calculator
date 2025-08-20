@@ -1,9 +1,15 @@
-const express = require('express');
+const express = require("express");
+const Attendance = require("../models/attendance");
 const router = express.Router();
 
-// Attendance route example
-router.get('/:employeeId', (req, res) => {
-    res.json({ message: `Attendance for employee ${req.params.employeeId}` });
+// Get attendance by employeeId
+router.get("/:employeeId", async (req, res) => {
+  try {
+    const attendance = await Attendance.findAll({ where: { employeeId: req.params.employeeId } });
+    res.json(attendance);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
