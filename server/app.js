@@ -1,15 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-const employeeRoutes = require("./routes/employeeRoutes");
-const salaryRoutes = require("./routes/salaryRoutes");
-const attendanceRoutes = require("./routes/attendanceRoutes");
+const employeesRouter = require("./routes/employees");
+const attendanceRouter = require("./routes/attendanceRoutes"); // ✅ Make sure this is included
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/employees", employeeRoutes);
-app.use("/api/salary", salaryRoutes);
-app.use("/api/attendance", attendanceRoutes);
+// Routes
+app.use("/api/employees", employeesRouter);
+app.use("/api/attendance", attendanceRouter); // ✅ This line should be present
 
-app.listen(8084, () => console.log("Server running on port 8084"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
