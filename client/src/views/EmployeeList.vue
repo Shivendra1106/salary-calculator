@@ -11,16 +11,13 @@
     <table v-if="employees.length > 0">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Daily Rate</th>
-          <th>Actions</th>
+          <th>ID</th><th>Name</th><th>Position</th><th>Daily Rate</th><th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="emp in employees" :key="emp.id">
           <td>{{ emp.id }}</td>
+
           <td>
             <span v-if="!emp.editing">{{ emp.name }}</span>
             <input v-else v-model="emp.editName" type="text" />
@@ -68,7 +65,6 @@
     </form>
   </div>
 </template>
-
 <script>
 export default {
   name: "EmployeeList",

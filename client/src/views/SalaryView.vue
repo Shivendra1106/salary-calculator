@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <h1>Salary Details for Employee {{ $route.params.id }}</h1>
     <table border="1" cellpadding="5">

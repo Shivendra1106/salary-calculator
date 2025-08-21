@@ -25,6 +25,3 @@ sequelize.sync()
   })
   .catch(err => console.error('Database connection error:', err));
   console.log('Server is starting...');
-
-  .catch(err => console.error('Database connection error:', err));
-

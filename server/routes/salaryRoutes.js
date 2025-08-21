@@ -1,7 +1,7 @@
 const express = require("express");
 const Salary = require("../models/salary");
 const router = express.Router();
-
+const db = require('../config/database');
 // Get salary by employeeId
 router.get("/:employeeId", async (req, res) => {
   try {
