@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const sequelize = require('../config/database'); // <-- Make sure this line is present
 
 const Employee = sequelize.define('Employee', {
   id: {
@@ -20,8 +20,7 @@ const Employee = sequelize.define('Employee', {
     allowNull: false
   }
 }, {
-  tableName: 'employees',  // optional: to force table name
-  timestamps: false        // disable createdAt/updatedAt
+  timestamps: false // Optional: disable createdAt/updatedAt if not in DB
 });
 
 module.exports = Employee;

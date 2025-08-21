@@ -1,39 +1,53 @@
 <template>
-  <div class="p-6">
-    <h2 class="text-2xl font-bold mb-4">Salary Details</h2>
 
-    <div v-if="salary">
-      <p><b>Employee:</b> {{ salary.name }} ({{ salary.position }})</p>
-      <p><b>Month:</b> {{ salary.month }}</p>
-      <p><b>Total Days Worked:</b> {{ salary.total_days }}</p>
-      <p><b>Total Hours Worked:</b> {{ salary.total_hours }}</p>
-      <p><b>Daily Rate:</b> ₹{{ salary.daily_rate }}</p>
-      <p><b>Gross Salary:</b> ₹{{ salary.gross_salary }}</p>
-      <p><b>Deductions:</b> ₹{{ salary.deductions }}</p>
-      <p><b>Net Salary:</b> ₹{{ salary.net_salary }}</p>
-      <p><b>Paid:</b> {{ salary.paid ? "Yes" : "No" }}</p>
-    </div>
-
-    <div v-else>
-      <p>Loading salary details...</p>
-    </div>
+  <div>
+    <h1>Salary Details for Employee {{ $route.params.id }}</h1>
+    <table border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Employee ID</th>
+          <th>Month</th>
+          <th>Total Days</th>
+          <th>Gross Salary</th>
+          <th>Deductions</th>
+          <th>Net Salary</th>
+          <th>Paid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="salary in salaries" :key="salary.id">
+          <td>{{ salary.id }}</td>
+          <td>{{ salary.employee_id }}</td>
+          <td>{{ salary.month }}</td>
+          <td>{{ salary.total_days }}</td>
+          <td>{{ salary.gross_salary }}</td>
+          <td>{{ salary.deductions }}</td>
+          <td>{{ salary.net_salary }}</td>
+          <td>{{ salary.paid }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from "vue";
+<script>
 import axios from "axios";
-import { useRoute } from "vue-router";
 
-const route = useRoute();
-const salary = ref(null);
-
-onMounted(async () => {
-  try {
-    const res = await axios.get(`http://localhost:5000/api/salaries/${route.params.employeeId}/calculate`);
-    salary.value = res.data;
-  } catch (err) {
-    console.error("Error fetching salary:", err);
+export default {
+  props: ["id"],
+  data() {
+    return {
+      salaries: []
+    };
+  },
+  async created() {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/salary/${this.$route.params.id}`);
+      this.salaries = res.data;
+    } catch (err) {
+      console.error("Error fetching salary:", err);
+    }
   }
-});
+};
 </script>
