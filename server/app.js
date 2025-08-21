@@ -1,22 +1,21 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const sequelize = require('./config/database');
-const employeeRoutes = require('./routes/employeeRoutes');
-const attendanceRoutes = require('./routes/attendanceRoutes');
-const salaryRoutes = require('./routes/salaryRoutes');
+const express = require("express");
+const cors = require("cors");
+const employeesRouter = require("./routes/employees");
+const attendanceRouter = require("./routes/attendanceRoutes"); // ✅ Make sure this is included
 
 const app = express();
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/employees', employeeRoutes);
-app.use('/api/attendance', attendanceRoutes);
-app.use('/api/salaries', salaryRoutes);
+app.use("/api/employees", employeesRouter);
+app.use("/api/attendance", attendanceRouter); // ✅ This line should be present
 
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
 // Database connection
 sequelize.sync()
   .then(() => {
